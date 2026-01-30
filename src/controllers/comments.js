@@ -33,7 +33,6 @@ export default {
                 rating
             });
 
-
             res.status(201).json({
                 message: "Comment added successfully",
                 comment
@@ -85,5 +84,4 @@ export default {
             next(err);
         }
     }
-
 }

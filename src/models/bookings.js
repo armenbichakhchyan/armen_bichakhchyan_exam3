@@ -37,22 +37,6 @@ export const cancelBooking = async (conn, bookingId, userId) => {
     return result;
 };
 
-export const findUserBookings = async (userId, limit, offset) => {
-    const query = `
-        SELECT b.*, f.title, s.show_date, s.show_time
-        FROM bookings b
-                 JOIN showtimes s ON b.showtime_id = s.id
-                 JOIN films f ON s.film_id = f.id
-        WHERE b.user_id = ?
-        ORDER BY b.booking_date DESC
-            LIMIT ? OFFSET ?
-    `;
-
-    const [rows] = await pool.query(query, [userId, limit, offset]);
-    return rows;
-};
-
-
 export const findShowtimeForUpdate = async (conn, id) => {
     const [rows] = await conn.query(
         `SELECT * FROM showtimes WHERE id = ? FOR UPDATE`,

@@ -21,7 +21,7 @@ export const getCommentsByFilm = async (film_id) => {
         u.username, u.full_name
         FROM comments c 
         JOIN users u ON u.id = c.user_id
-        WHERE c.user_id = ?;
+        WHERE c.film_id = ?;
         ORDER BY c.created_at DESC
     `;
 

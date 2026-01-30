@@ -27,13 +27,6 @@ export const createShowtime = async (data) => {
     return result;
 };
 
-export const findShowtimesByDate = async (show_date) => {
-    const [rows] = await pool.query(
-        `SELECT * FROM showtimes WHERE show_date = ?`,
-        [show_date]
-    );
-    return rows;
-};
 
 export const findByFilmAndTime = async (film_id, show_date, show_time) => {
     const [rows] = await pool.query(

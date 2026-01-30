@@ -1,17 +1,26 @@
 import bcrypt from 'bcrypt';
+import util from 'util';
+
+const hash = util.promisify(bcrypt.hash);
+const compare = util.promisify(bcrypt.compare);
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS) || 12;
+const passwordkey = process.env.PASSWORD_KEY
 
-if(!saltRounds) {
+if(!passwordkey) {
     throw new Error(
-        "salt round is required. Please try again."
+        "Secret for sign token is required. Please try again."
     )
 }
 
-export const  hashPassword = async (password) => {
-    return await bcrypt.hash(password, saltRounds);
+if (!saltRounds) {
+    throw new Error("salt round is required.");
+}
+
+export const hashPassword = async (password) => {
+    return await hash(password + passwordkey, passwordkey);
 }
 
 export const comparePassword = async (password, hashedPassword) => {
-    return await bcrypt.compare(password, hashedPassword);
+    return await compare(password + passwordkey, hashedPassword);
 }

@@ -9,7 +9,7 @@ const passwordkey = process.env.PASSWORD_KEY
 
 if(!passwordkey) {
     throw new Error(
-        "Secret for sign token is required. Please try again."
+        "Password secret for hashing and compare password is required. Please try again."
     )
 }
 
